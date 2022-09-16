@@ -34,3 +34,30 @@ def make_counted_table(pairs):
         fresh[1] = sort.rev_merge_pairs_second(fresh[1])
         table.append(fresh)
     return table
+
+import os, csv
+
+def make_density_table(pairs):
+    #Sort the pairs
+    pairs = sort.merge_pairs(pairs)
+    table = make_counted_table(pairs)
+
+    files = {}
+    for filename in os.listdir("."):
+        if filename.endswith(".txt"):
+            words = 0
+            with open("." + filename, encoding="utf-8") as f:
+                for w in csv.reader(f, delimiter=' '):
+                    words += 1
+                files[filename] = words
+
+    for word in table:
+        lexeme = word[0]
+        file_occurences = word[1]
+        for file in file_occurences:
+            filename = file[0]
+            file[1] /= files[filename]
+        # Sort again
+        word[1] = sort.rev_merge_pairs_second(file_occurences)
+
+    return table
