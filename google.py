@@ -20,7 +20,7 @@ print("Time spent reading text files: {}".format(round(duration*1000000)))
 
 # create search table
 start = time.process_time()
-word_table = pearl.make_table(word_pairs)
+word_table = pearl.make_counted_table(word_pairs)
 duration = time.process_time() - start
 print("Time spent creating search table: {}".format(round(duration*1000000)))
 
